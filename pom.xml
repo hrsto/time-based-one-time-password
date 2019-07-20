@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.webarity</groupId>
+    <artifactId>totp-auth</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+    <name>${project.artifactId}</name>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <project.encoding>UTF-8</project.encoding>
+        
+        <project.name>google-2fa</project.name>
+        
+        <project.java.version>11</project.java.version>
+        
+        <!-- Project build deps: -->
+        <project.wildfly.maven.plugin.version>2.0.0.Final</project.wildfly.maven.plugin.version>
+        <project.maven.war.plugin.version>2.0.0.Final</project.maven.war.plugin.version>
+        <project.maven.war.plugin.version>3.2.2</project.maven.war.plugin.version>
+        <project.maven.ear.plugin.version>3.0.1</project.maven.ear.plugin.version>
+        <project.maven.compiler.plugin.version>3.8.0</project.maven.compiler.plugin.version>
+        <project.maven.source.plugin.version>3.1.0</project.maven.source.plugin.version>
+        
+        <!-- Testing deps: -->
+        <project.maven.surefire.plugin.version>2.19</project.maven.surefire.plugin.version>
+        <project.junit-platform-runner.version>1.5.0</project.junit-platform-runner.version>
+        <project.junit-jupiter-engine.version>5.5.0</project.junit-jupiter-engine.version>
+        <project.junit.version>4.12</project.junit.version>
+    </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${project.maven.source.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${project.maven.compiler.plugin.version}</version>
+                <configuration>
+                    <!-- <verbose>true</verbose> -->
+                    <!-- <showWarnings>true</showWarnings> -->
+                    <!-- <showDeprecation>true</showDeprecation> -->
+                    <!-- <compilerArguments> -->
+                    <release>${project.java.version}</release>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${project.maven.surefire.plugin.version}</version>
+                <configuration>
+                    <!-- <includes>
+                    <include>**/Test*.java</include>
+                    <include>**/*Test.java</include>
+                    <include>**/*Tests.java</include>
+                    <include>**/*TestCase.java</include>
+                    </includes> -->
+                    <parallel>both</parallel>
+                    <threadCount>16</threadCount>
+                    <properties>
+                        <!--To filter tests by tags. Can also use groups instead of includeTags and excludedGroups instead of excludeTags.-->
+                        <!--Format is: <includeTags>tagA, tagB, tagN, etc</includeTags>-->
+                        <!--<includeTags></includeTags>-->
+                        <!--<excludeTags></excludeTags>-->
+                        <configurationParameters>
+                            <!--Using the java .properties file syntax, i.e. key=value, can set junit configuration properties-->
+                            <!--Examples:
+                        junit.jupiter.testinstance.lifecycle.default = per_class
+                        junit.jupiter.conditions.deactivate = *
+                        -->
+                        </configurationParameters>
+                    </properties>
+                </configuration>
+                <dependencies>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+    <dependencies>
+            <dependency>
+                <groupId>org.junit.platform</groupId>
+                <artifactId>junit-platform-runner</artifactId>
+                <version>${project.junit-platform-runner.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>${project.junit-jupiter-engine.version}</version>
+            </dependency>
+    </dependencies>
+</project>
