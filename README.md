@@ -4,6 +4,8 @@ Uses [Google Authenticator](https://github.com/google/google-authenticator-andro
 
 ## Usage
 
+Install Google Authenticator from the google play store and set it up for time based passwords and give it a shared secret. Then:
+
 ```java
 TimeOneTimePassword.HMACSHA1.oneTimePassword("mysharedsecrethere"); //uses the defaults of 0 unix start time, 30 seconds interval steps, and 6 pin length
 TimeOneTimePassword.HMACSHA1.oneTimePassword("mysharedsecrethere", 6); //with pin length
