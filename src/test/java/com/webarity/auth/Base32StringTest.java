@@ -1,14 +1,14 @@
 package com.webarity.auth;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 
 import com.webarity.auth.support.Base32String;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * <p>Tests adapted form Google Authenticator. See below link.</p>
@@ -35,14 +35,14 @@ public class Base32StringTest {
         assertEquals(Base32String.encode(INPUT4), OUTPUT4);
 
         // check decoding
-        assertTrue("", Arrays.equals(Base32String.decode(OUTPUT1), INPUT1));
-        assertTrue("", Arrays.equals(Base32String.decode(OUTPUT2), INPUT2));
-        assertTrue("", Arrays.equals(Base32String.decode(OUTPUT3), INPUT3));
-        assertTrue("", Arrays.equals(Base32String.decode(OUTPUT4), INPUT4));
+        assertTrue(() -> Arrays.equals(Base32String.decode(OUTPUT1), INPUT1));
+        assertTrue(() -> Arrays.equals(Base32String.decode(OUTPUT2), INPUT2));
+        assertTrue(() -> Arrays.equals(Base32String.decode(OUTPUT3), INPUT3));
+        assertTrue(() -> Arrays.equals(Base32String.decode(OUTPUT4), INPUT4));
 
         byte[] b16 = Base32String.decode("7777777777777777"); // 16 7s.
         byte[] b17 = Base32String.decode("77777777777777777"); // 17 7s.
-        assertTrue("", Arrays.equals(b16, b17));
+        assertTrue(() -> Arrays.equals(b16, b17));
     }
 
     @Test
@@ -62,8 +62,8 @@ public class Base32StringTest {
         // acceptable separators " " and "-" which should be ignored
         assertEquals(Base32String.decode("AA-AA").length, 2);
         assertEquals(Base32String.decode("AA-AA").length, 2);
-        assertTrue("", Arrays.equals(Base32String.decode("AA AA"), Base32String.decode("AA-AA")));
-        assertTrue("", Arrays.equals(Base32String.decode("AA AA"), Base32String.decode("AAAA")));
+        assertTrue(() -> Arrays.equals(Base32String.decode("AA AA"), Base32String.decode("AA-AA")));
+        assertTrue(() -> Arrays.equals(Base32String.decode("AA AA"), Base32String.decode("AAAA")));
 
         // 1, 8, 9, 0 are not a valid character, decoding should fail
         assertThrows(RuntimeException.class, () -> {Base32String.decode("11");});

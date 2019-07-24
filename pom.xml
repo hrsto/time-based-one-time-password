@@ -24,10 +24,8 @@
         <project.maven.source.plugin.version>3.1.0</project.maven.source.plugin.version>
         
         <!-- Testing deps: -->
-        <project.maven.surefire.plugin.version>2.19</project.maven.surefire.plugin.version>
-        <project.junit-platform-runner.version>1.5.0</project.junit-platform-runner.version>
-        <project.junit-jupiter-engine.version>5.5.0</project.junit-jupiter-engine.version>
-        <project.junit.version>4.12</project.junit.version>
+        <project.maven.surefire.plugin.version>2.22.2</project.maven.surefire.plugin.version>
+        <project.org.junit.jupiter.version>5.5.1</project.org.junit.jupiter.version>
     </properties>
     <build>
         <plugins>
@@ -88,15 +86,11 @@
         </plugins>
     </build>
     <dependencies>
-            <dependency>
-                <groupId>org.junit.platform</groupId>
-                <artifactId>junit-platform-runner</artifactId>
-                <version>${project.junit-platform-runner.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.junit.jupiter</groupId>
-                <artifactId>junit-jupiter-engine</artifactId>
-                <version>${project.junit-jupiter-engine.version}</version>
-            </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${project.org.junit.jupiter.version}</version>
+            <scope>test</scope>
+          </dependency>
     </dependencies>
 </project>
