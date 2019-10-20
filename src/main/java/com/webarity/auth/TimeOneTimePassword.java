@@ -1,7 +1,5 @@
 package com.webarity.auth;
 
-import com.webarity.auth.support.*;
-
 import java.io.ByteArrayInputStream;
 import java.io.DataInput;
 import java.io.DataInputStream;
@@ -11,6 +9,8 @@ import java.security.NoSuchAlgorithmException;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+
+import com.webarity.auth.support.Base32String;
 
 /**
  * <p>Defaults:</p>
@@ -49,7 +49,7 @@ public enum TimeOneTimePassword {
      *  
      * @param secret shared secret between Google Authenticator and Server
      * @return a 6 digit pin, computed for current step of 30 seconds and start time 0
-     * @throws Exception
+     * @throws Exception catch-all Exception related to {@link #computePin(String, byte[], int) computePin} or {@link ByteBuffer}
      */
     public String oneTimePassword(String secret) throws Exception {
         byte[] challenge = ByteBuffer.allocate(8).putLong(getValueAtTime(System.currentTimeMillis() / 1000, START_TIME, TIME_STEP)).array();
@@ -61,7 +61,7 @@ public enum TimeOneTimePassword {
      * @param secret shared secret between Google Authenticator and Server
      * @param pinLength length of the pin/password
      * @return the pin with the specified length, computed for current step of 30 seconds and start time 0
-     * @throws Exception
+     * @throws Exception catch-all Exception related to {@link #computePin(String, byte[], int) computePin} or {@link ByteBuffer}
      */
     public String oneTimePassword(String secret, int pinLength) throws Exception {
         byte[] challenge = ByteBuffer.allocate(8).putLong(getValueAtTime(System.currentTimeMillis() / 1000, START_TIME, TIME_STEP)).array();
@@ -75,7 +75,7 @@ public enum TimeOneTimePassword {
      * @param timeStep window between new code generation, in seconds
      * @param pinLength length of the pin/password
      * @return the pin with the specified length, computed for current step of 30 seconds and start time 0
-     * @throws Exception
+     * @throws Exception catch-all Exception related to {@link #computePin(String, byte[], int) computePin} or {@link ByteBuffer}
      */
     public String oneTimePassword(String secret, long startTime, long timeStep, int pinLength) throws Exception {
         byte[] challenge = ByteBuffer.allocate(8).putLong(getValueAtTime(System.currentTimeMillis() / 1000, startTime, timeStep)).array();
@@ -91,7 +91,7 @@ public enum TimeOneTimePassword {
      * @param timeStep window between new code generation, in seconds
      * @param pinLength length of the pin/password
      * @return the pin with the specified length, computed for current step of 30 seconds and start time 0
-     * @throws Exception
+     * @throws Exception catch-all Exception related to {@link #computePin(String, byte[], int) computePin} or {@link ByteBuffer}
      */
     public String oneTimePassword(String secret, long nowTime, long startTime, long timeStep, int pinLength) throws Exception {
         byte[] challenge = ByteBuffer.allocate(8).putLong(getValueAtTime(nowTime, startTime, timeStep)).array();

@@ -3,3 +3,6 @@
 .settings
 .vscode
 target
+.gradle
+bin
+build

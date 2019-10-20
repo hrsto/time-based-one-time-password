@@ -25,6 +25,12 @@ public class Base32String {
         }
     }
 
+    /**
+     * <p>Decode an encoded String.</p>
+     * 
+     * @param encoded encoded String
+     * @return decoded String
+     */
     public static byte[] decode(String encoded) {
         // Remove whitespace and separators
         encoded = encoded.trim().replaceAll(SEPARATOR, "").replaceAll(" ", "");
@@ -61,6 +67,12 @@ public class Base32String {
         return result;
     }
 
+    /**
+     * <p>Encode a String.</p>
+     * 
+     * @param data byte representation of a String to encode
+     * @return encoded String
+     */
     public static String encode(byte[] data) {
         int dataLength = data.length;
         if (dataLength == 0) {
