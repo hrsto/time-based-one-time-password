@@ -1,12 +1,15 @@
 plugins {
     id 'java'
+    id 'maven-publish'
+    id 'signing'
 }
 
 sourceCompatibility = '11'
 targetCompatibility = '11'
 
 def docsDir = "${project.rootDir}/docs"
-version = '1.0'
+version = '1.0.0'
+group = 'com.webarity'
 
 repositories {
     mavenCentral()
@@ -27,4 +30,62 @@ javadoc {
 
 clean {
     delete docsDir
+}
+
+task sourcesForPublication(type: Jar) {
+    archiveClassifier = 'sources'
+    from sourceSets.main.allJava
+}
+task javadocForPublication(type: Jar, dependsOn: javadoc) {
+    archiveClassifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+publishing {
+    publications {
+        thing(MavenPublication) {
+            from components.java
+            artifact javadocForPublication
+            artifact sourcesForPublication
+
+            artifactId = 'time-based-one-time-password'
+            pom {
+                name = 'Time based one time password'
+                description = 'Java Implementation of TOTP: Time-Based One-Time Password Algorithm'
+                url = 'https://www.webarity.com/time-based-one-time-password/'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'hrsto'
+                        name = 'Hristo Y. Stoyanov'
+                        email = 'sto.hristo@gmail.com'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:github.com:hrsto/time-based-one-time-password.git'
+                    developerConnection = 'scm:git:ssh://github.com:hrsto/time-based-one-time-password.git'
+                    url = 'https://github.com/hrsto/time-based-one-time-password'
+                }
+            }
+        }
+    }
+    
+    repositories {
+        maven {
+            url = 'https://oss.sonatype.org/service/local/staging/deploy/maven2'
+            credentials {
+                username sonatypeUsername
+                password sonatypePassword
+            }
+        }
+    }
+}
+
+signing {
+    sign publishing.publications
 }
